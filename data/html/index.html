@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+	<title>GkR's lair</title>
+	<!--	<link rel="icon" type="image/gif" href="img/smiley_.gif"> -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<fieldset>
+		<legend>Pichu's Controller</legend>
+
+		<form action="/bot/talk" method="post">
+			<h3>Talk</h3>
+			<input type="hidden" name="action" value="talk">
+			<select name="chan">
+				<option>Select a chan</option>{% for chan in channels %}
+				<option value="{{chan.serverName}}">{{chan.serverName}}</option>{%endfor%}
+			</select>
+			<input type="text" name="txt">
+			<input type="submit" value="»">
+		</form>
+
+		<form action="/bot/talk" method="post">
+			<h3>Join</h3>
+			<input type="hidden" name="action" value="join">
+			<input type="text" name="chan">
+			<input type="submit" value="»">
+		<form>
+
+	</fieldset>
+	<fieldset>
+		<legend>Pichu's Memory</legend>
+		<ul></ul>
+	</fieldset>
+</body>
+</html>

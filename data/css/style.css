@@ -1,0 +1,29 @@
+body{
+	background: black; color: yellow;
+}
+
+fieldset{
+	width: 40%;
+	float: left;
+	margin: 0px 20px;
+}
+
+h3{
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+select{
+	display: inline-block;
+}
+input[type="text"]{
+	display: inline-block;
+	width: 90%;
+}
+input[type="submit"]{
+	display: inline-block;
+	width: 5%;
+}
+form{
+	padding-bottom: 5px;
+	border-bottom: 3px double yellow;
+}
