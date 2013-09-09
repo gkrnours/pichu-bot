@@ -11,13 +11,15 @@ var qs      = require('querystring')
 
 var board = require("pixelboard")
 
+var local = (typeof process.env.OPENSHIFT_INTERNAL_PORT != "undefined")
+var ipadr = (process.env.OPENSHIFT_NODEJS_PORT || 8080)
+var port  = (process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
 
-http.listen(process.env.OPENSHIFT_INTERNAL_PORT || 8080)
+http.listen(port, ipadr)
 io.set('log level', 1)
 tpl.init({'cache': false})
 board.set_io(io)
 
-var local = (typeof process.env.OPENSHIFT_INTERNAL_PORT != "undefined")
 
 var paths = {
 	'static': function(req, res){
