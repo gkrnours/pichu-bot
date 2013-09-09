@@ -17,7 +17,7 @@
   "dependencies": {
     "irc": "~0.3.6",
     "swig": "~0.13.5",
-    "socket.io": "0.9.*"
+    "socket.io": "0.9.16"
   },
   "devDependencies": {},
   "bundleDependencies": [],
