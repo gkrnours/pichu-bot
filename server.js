@@ -1,6 +1,7 @@
 #!/bin/env node
 
-var http    = require('http')
+var http    = require('http').createServer(handler)
+var io      = require('socket.io').listen(http)
 var tpl     = require('swig')
 var bot     = require('./bot')
 var irc     = require('irc')
@@ -8,7 +9,13 @@ var url     = require('url')
 var fs      = require('fs')
 var qs      = require('querystring')
 
+var board = require("pixelboard")
+
+
+http.listen(process.env.OPENSHIFT_INTERNAL_PORT || 8080)
+io.set('log level', 1)
 tpl.init({'cache': false})
+board.set_io(io)
 
 var local = (typeof process.env.OPENSHIFT_INTERNAL_PORT != "undefined")
 
@@ -49,11 +56,14 @@ var index = tpl.compileFile(process.cwd()+"/data/html/index.html")
 
 function handler(req, res){
 	req.setEncoding("utf8")
+	console.log(req.url)
 
 	// static
 	if(req.url.match("^/(css|js)/[a-z.]+")) return paths.static(req, res)
 	// bot commande
 	if(req.url.match("^/bot/[a-z./]+")) return paths.bot(req, res) 
+	// pixelboard
+	if(req.url.match("^/board/?")) return board.handler(req, res)
 	// index
 	if(req.url == "/"){
 	 	return res.end(index.render({'channels': bot.channels()}) )
@@ -63,6 +73,4 @@ function handler(req, res){
 	res.end()
 }
 
-var server = http.createServer(handler)
-                 .listen(process.env.OPENSHIFT_INTERNAL_PORT || 8080)
 
