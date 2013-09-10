@@ -11,14 +11,12 @@ var qs      = require('querystring')
 
 var board = require("pixelboard")
 
-var local = (typeof process.env.OPENSHIFT_INTERNAL_PORT != "undefined")
+var local = (typeof process.env.OPENSHIFT_INTERNAL_PORT == "undefined")
 var ipadr = (process.env.OPENSHIFT_NODEJS_IP)
 var port  = (process.env.OPENSHIFT_NODEJS_PORT || 8080)
 
 http.listen(port, ipadr)
 io.set('log level', 1)
-io.set('transports', ["xhr-polling"])
-io.set('polling duration', 30)
 tpl.init({'cache': false})
 board.set_io(io)
 
