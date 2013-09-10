@@ -17,6 +17,8 @@ var port  = (process.env.OPENSHIFT_NODEJS_PORT || 8080)
 
 http.listen(port, ipadr)
 io.set('log level', 1)
+io.set('transports', ["xhr-polling"])
+io.set('polling duration', 30)
 tpl.init({'cache': false})
 board.set_io(io)
 
@@ -58,7 +60,6 @@ var index = tpl.compileFile(process.cwd()+"/data/html/index.html")
 
 function handler(req, res){
 	req.setEncoding("utf8")
-	console.log(req.url)
 
 	// static
 	if(req.url.match("^/(css|js)/[a-z.]+")) return paths.static(req, res)
